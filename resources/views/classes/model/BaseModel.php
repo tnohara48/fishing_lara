@@ -15,8 +15,8 @@ class BaseModel
     public function __construct()
     {
         // SQLiteファイルのPath
-        $dsn = 'sqlite:'.$_SERVER['DOCUMENT_ROOT'].'/deploy/db/fishing.db';
-
+        $dsn = 'sqlite:'.$_SERVER['DOCUMENT_ROOT'].'/fishing_lara/database/fishing.db';
+        
         try {
             // 接続
             $this->dbh = new PDO($dsn);

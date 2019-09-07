@@ -1,6 +1,6 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . '/deploy/classes/util/CommonUtil.php');
-require_once($_SERVER['DOCUMENT_ROOT'] . '/deploy/classes/model/ProductsModel.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/fishing_lara/resources/views/classes/util/CommonUtil.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/fishing_lara/resources/views/classes/model/ProductsModel.php');
 
 // サニタイズ
 $post = CommonUtil::sanitaize($_POST);

@@ -1,5 +1,5 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . '/deploy/classes/model/BaseModel.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/fishing_lara/resources/views/classes/model/BaseModel.php');
 
 /**
  * 商品状態モデルクラスです。

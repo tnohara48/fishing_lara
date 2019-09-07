@@ -1,6 +1,6 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . '/deploy/classes/util/CommonUtil.php');
-require_once($_SERVER['DOCUMENT_ROOT'] . '/deploy/classes/model/ProductsModel.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/fishing_lara/resources/views/classes/util/CommonUtil.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/fishing_lara/resources/views/classes/model/ProductsModel.php');
 
 // サニタイズ
 $post = CommonUtil::sanitaize($_POST);
@@ -38,13 +38,15 @@ try {
             <button type="button" class="btn btn-danger mx-1" onclick="location.href='{{ action('home@index') }}'">一覧</button>
             <!-- <button type="button" class="btn btn-danger mx-1" onclick="location.href='./entry_product.php'">商品名登録</button> -->
             <button type="button" class="btn btn-danger mx-1" onclick="location.href='{{ action('home@edit_product') }}'">商品名登録</button>
-            <!-- <button type="button" class="btn btn-danger mx-1" onclick="location.href='./entry_condition.php'">状態登録</!--> -->
+            <!-- <button type="button" class="btn btn-danger mx-1" onclick="location.href='./entry_condition.php'">状態登録</button> -->
             <button type="button" class="btn btn-danger mx-1" onclick="location.href='{{ action('home@entry_condition') }}'">状態登録</button>
         </div>
     </nav>
 
     <div class="container col-9">
-        <form action="./edit_action_product.php" method="post">
+        <!-- <form action="{{ action('home@edit_action_product') }}" method="post"> -->
+        <form action="{{ route('home.edit_action_product', ['post' => $post]) }}" method="post">
+
             <!-- 商品名入力ボックス -->
             <div class="row mt-5">
                 <label for="product_name">
@@ -66,9 +68,16 @@ try {
 
                 <!-- 登録ボタン -->
                 <div class="mx-auto my-5">
-                    <button type="submit" class="btn btn-lg btn-primary mx-3" id="submitProductBtn">更　新</button>
-                    <button type="button" class="btn btn-lg btn-dark mx-3" id="cancelBtn" onclick="location.href='./index.php'">キャンセル</button>
+                    <a href="{{ action('home@edit_action_product') }}">
+                        <button type="submit" class="btn btn-lg btn-danger mx-3" id="submitProductBtn">更　新</button>
+                    </a>
+                    <a href="{{ action('home@index') }}">
+                        <button type="button" class="btn btn-lg btn-dark mx-3" id="cancelBtn">キャンセル</button>
+                    </a>
                 </div>
+
+                    <!-- <button type="button" class="btn btn-lg btn-primary mx-3" id="submitProductBtn">更　新</button>
+                    <button type="button" class="btn btn-lg btn-dark mx-3" id="cancelBtn" onclick="location.href='./index.php'">キャンセル</button> -->
 
             </div>
         </form>

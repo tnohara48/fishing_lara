@@ -2,7 +2,7 @@
 //サービス
 // class/util/ArticleService.php
 
-namespace App\Services;
+//namespace App\Services;
 
 /**
  * セッション関連ユーティリティクラスです。

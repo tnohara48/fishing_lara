@@ -1,8 +1,8 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . '/deploy/classes/util/SessionUtil.php');
-require_once($_SERVER['DOCUMENT_ROOT'] . '/deploy/classes/util/CommonUtil.php');
-require_once($_SERVER['DOCUMENT_ROOT'] . '/deploy/classes/model/ProductsModel.php');
-require_once($_SERVER['DOCUMENT_ROOT'] . '/deploy/classes/model/ConditionsModel.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/fishing_lara/resources/views/classes/util/SessionUtil.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/fishing_lara/resources/views/classes/util/CommonUtil.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/fishing_lara/resources/views/classes/model/ProductsModel.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/fishing_lara/resources/views/classes/model/ConditionsModel.php');
 
 // セッションスタート
 SessionUtil::sessionStart();
@@ -12,7 +12,7 @@ unset($_SESSION['search']);             //検索ワード情報クリア
 
 try {
     //商品モデル
-    $db_product = new ProductsModel();
+    $db_product = new ProductsModel();print $_SERVER['DOCUMENT_ROOT'];
     //商品状態モデル
     $db_condition = new ConditionsModel();
 
@@ -66,7 +66,7 @@ try {
             <button type="button" class="btn btn-danger mx-1" onclick="location.href='{{ action('home@index') }}'">一覧</button>
             <!-- <button type="button" class="btn btn-danger mx-1" onclick="location.href='./entry_product.php'">商品名登録</button> -->
             <button type="button" class="btn btn-danger mx-1" onclick="location.href='{{ action('home@edit_product') }}'">商品名登録</button>
-            <!-- <button type="button" class="btn btn-danger mx-1" onclick="location.href='./entry_condition.php'">状態登録</!--> -->
+            <!-- <button <button type="button" class="btn btn-danger mx-1" onclick="location.href='./entry_condition.php'">状態登録</button> -->
             <button type="button" class="btn btn-danger mx-1" onclick="location.href='{{ action('home@entry_condition') }}'">状態登録</button>
             <button type="button" class="btn btn-success font-weight-bold float-right" id="export">メモ出力</button>
         </div>
@@ -128,16 +128,11 @@ try {
                     <div class="row">
                         <!-- <form action="edit_product.php" method="post"> -->
                         <a href="{{ action('home@edit_product') }}">
-                        <button type="submit" class="btn btn-primary mr-2 font-weight-bold" id="editConditionBtn">修正して更新</button>
+                        <button type="button" class="btn btn-primary mr-2 font-weight-bold" id="editConditionBtn">修正して更新</button>
                         </a>                
-                        <form action="edit_condition.php" method="post">
-                            <input type="hidden" name="editConditionId" id="editConditionId" value="">
-                            <button type="submit" class="btn btn-primary mr-2 font-weight-bold" id="editConditionBtn">修正して更新</button>
-                        </form>
-                        <form action="delete_product.php" method="post">
-                            <input type="hidden" name="deleteProductId" id="deleteProductId" value="">
-                            <button type="submit" class="btn btn-danger mr-3 font-weight-bold" id="deleteProductBtn">削除</button>
-                        </form>
+                        <a href="{{ action('home@delete_product') }}">
+                        <button type="button" class="btn btn-primary mr-2 font-weight-bold" id="deleteProductBtn">削除</button>
+                        </a>
                     </div>
                 </div>
             </div>

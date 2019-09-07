@@ -12,6 +12,12 @@ class home extends Controller
      return view('home');
     }
 
+    function show()
+    {
+     return view('delete_product');
+    }
+
+
     function action(Request $request)
     {
      if($request->ajax())
@@ -69,12 +75,38 @@ class home extends Controller
     }
 
     /*
+    商品名登録
+    */
+    function edit_action_product()
+    {
+      return view('edit_action_product');
+    }
+
+
+    /*
     状態登録
     */
     function entry_condition()
     {
      return view('entry_condition');
 
+    }
+
+    /*
+    削除
+    */
+    function delete_product()
+    {
+     return view('delete_product');
+
+    }
+
+    /*
+    削除
+    */
+    function delete_action_product()
+    {
+      return view('delete_action_product');
     }
 
 

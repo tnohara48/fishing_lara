@@ -3,7 +3,7 @@
 // 登録用テーブルが存在するか
 try {
     // SQLiteファイルのPath
-    $dsn = 'sqlite:'.$_SERVER['DOCUMENT_ROOT'].'/deploy/db/fishing.db';
+    $dsn = 'sqlite:'.$_SERVER['DOCUMENT_ROOT'].'/fishing_lara/database/fishing.db';
     // 接続
     $dbh = new PDO($dsn);
     $stmt = $dbh->prepare("select count(*) from sqlite_master where type='table' and name='products';");
