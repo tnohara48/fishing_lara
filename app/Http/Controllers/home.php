@@ -1,0 +1,81 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use DB;
+
+class home extends Controller
+{
+    function index()
+    {
+     return view('home');
+    }
+
+    function action(Request $request)
+    {
+     if($request->ajax())
+     {
+      $output = '';
+      $query = $request->get('query');
+      if($query != '')
+      {
+       $data = DB::table('products')
+         ->where('search_product_name', 'like', '%'.$query.'%')
+         ->get();
+      }
+      else
+      {
+       $data = DB::table('products')
+         ->orderBy('id', 'desc')
+         ->get();
+      }
+      $total_row = $data->count();
+      if($total_row > 0)
+      {
+       foreach($data as $row)
+       {
+        $output .= '
+        <tr>
+         <td>'.$row->product_name.'</td>
+        </tr>
+        ';
+       }
+      }
+      else
+      {
+       $output = '
+       <tr>
+        <td align="center" colspan="5">No Data Found</td>
+       </tr>
+       ';
+      }
+      $data = array(
+       'table_data'  => $output,
+       'total_data'  => $total_row
+      );
+
+      echo json_encode($data);
+     }
+    }
+
+    /*
+    商品名登録
+    */
+    function edit_product()
+    {
+     return view('edit_product');
+
+    }
+
+    /*
+    状態登録
+    */
+    function entry_condition()
+    {
+     return view('entry_condition');
+
+    }
+
+
+}

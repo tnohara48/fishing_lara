@@ -1,0 +1,41 @@
+<?php
+require_once($_SERVER['DOCUMENT_ROOT'] . '/deploy/classes/util/SessionUtil.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/deploy/classes/util/CommonUtil.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/deploy/classes/model/ProductsModel.php');
+
+// セッションスタート
+SessionUtil::sessionStart();
+
+// サニタイズ
+$post = CommonUtil::sanitaize($_POST);
+
+// データベースに登録する内容を連想配列にする。
+$data = array(
+    'id' => $post['editProductId'],
+    'product_name' => $post['product_name'],
+    'product_memo' => $post['product_memo'],
+);
+
+try {
+    $db_product = new ProductsModel();
+
+    // トランザクション開始
+    $db_product->begin();
+
+    // 商品情報更新
+    $db_product->updateProductById($data);
+
+    // トースト表示の設定
+    $_SESSION['toast'] = "商品を更新しました";
+
+    // コミット
+    $db_product->commit();
+
+    header('Location: ./');
+} catch (Exception $e) {
+
+    // ロールバック
+    $db_product->rollback();
+
+    header('Location: ../error/error.php');
+}
