@@ -1,3 +1,14 @@
+@isset($proc)
+@if ($proc === "MOD")
+    @include('edit_action_product');
+@elseif ($proc === "DEL")
+    @include('delete_action_product');
+@elseif ($proc === "MOD_COND")
+    @include('edit_action_condition');
+@elseif ($proc === "DEL_COND")
+    @include('delete_action_condition');
+@endif
+@endisset
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . '/fishing_lara/resources/views/classes/util/SessionUtil.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/fishing_lara/resources/views/classes/util/CommonUtil.php');
@@ -12,7 +23,8 @@ unset($_SESSION['search']);             //検索ワード情報クリア
 
 try {
     //商品モデル
-    $db_product = new ProductsModel();print $_SERVER['DOCUMENT_ROOT'];
+    $db_product = new ProductsModel();
+
     //商品状態モデル
     $db_condition = new ConditionsModel();
 
@@ -44,11 +56,11 @@ try {
 <html>
 
 <head>
-    <title>商品/商品状態一覧1</title>
+    <title>商品/商品状態一覧</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href=".\css/style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -62,11 +74,8 @@ try {
     <!-- ヘッダー -->
     <nav class="navbar navbar-dark bg-dark sticky-top">
         <div class="col">
-            <!-- <button type="button" class="btn btn-danger mx-1" onclick="location.href='./index.php'">一覧</!--> -->
             <button type="button" class="btn btn-danger mx-1" onclick="location.href='{{ action('home@index') }}'">一覧</button>
-            <!-- <button type="button" class="btn btn-danger mx-1" onclick="location.href='./entry_product.php'">商品名登録</button> -->
             <button type="button" class="btn btn-danger mx-1" onclick="location.href='{{ action('home@edit_product') }}'">商品名登録</button>
-            <!-- <button <button type="button" class="btn btn-danger mx-1" onclick="location.href='./entry_condition.php'">状態登録</button> -->
             <button type="button" class="btn btn-danger mx-1" onclick="location.href='{{ action('home@entry_condition') }}'">状態登録</button>
             <button type="button" class="btn btn-success font-weight-bold float-right" id="export">メモ出力</button>
         </div>
@@ -126,13 +135,16 @@ try {
                 <!-- 商品詳細ボタン -->
                 <div class="float-right mt-3">
                     <div class="row">
-                        <!-- <form action="edit_product.php" method="post"> -->
-                        <a href="{{ action('home@edit_product') }}">
-                        <button type="button" class="btn btn-primary mr-2 font-weight-bold" id="editConditionBtn">修正して更新</button>
-                        </a>                
-                        <a href="{{ action('home@delete_product') }}">
-                        <button type="button" class="btn btn-primary mr-2 font-weight-bold" id="deleteProductBtn">削除</button>
-                        </a>
+                        <form action="{{ action('home@edit_product') }}" method="post">
+                            @csrf 
+                            <input type="hidden" name="editProductId" id="editProductId" value="">
+                            <button type="submit" class="btn btn-primary mr-2 font-weight-bold" id="editProductBtn">修正して更新</button>
+                        </form>
+                        <form action="{{ action('home@delete_product') }}" method="post">
+                            @csrf 
+                            <input type="hidden" name="deleteProductId" id="deleteProductId" value="">
+                            <button type="submit" class="btn btn-danger mr-3 font-weight-bold" id="deleteProductBtn">削除</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -209,11 +221,13 @@ try {
                 <!-- 商品状態ボタン -->
                 <div class="float-right mt-3">
                     <div class="row">
-                        <form action="edit_condition.php" method="post">
+                        <form action="{{ action('home@edit_condition') }}" method="post">
+                            @csrf 
                             <input type="hidden" name="editConditionId" id="editConditionId" value="">
                             <button type="submit" class="btn btn-primary mr-2 font-weight-bold" id="editConditionBtn">修正して更新</button>
                         </form>
-                        <form action="delete_condition.php" method="post">
+                        <form action="{{ action('home@delete_condition') }}" method="post">
+                            @csrf 
                             <input type="hidden" name="deleteConditionId" id="deleteConditionId" value="">
                             <button type="submit" class="btn btn-danger mr-3 font-weight-bold" id="deleteConditionBtn">削除</button>
                         </form>

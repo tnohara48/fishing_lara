@@ -14,14 +14,12 @@ $(function () {
         }
     });
 
-
     //【一覧画面】商品がクリックされた時の処理
     $(document).on("click", ".productName", function () {
 
 
         productId = $(this).next().next().val();                         //商品ID取得
-
-        document.cookie = 'productId=' + productId; // 20190907 T.Nohara
+        document.cookie = 'productId=' + productId; // Added 20190907 T.Nohara
 
         productMemo = $(this).next().text();                             //商品詳細取得
         exportFileName = $(this).next().next().next().val();             //ファイル出力用文字列を取得

@@ -12,11 +12,15 @@ $post = CommonUtil::sanitaize($_POST);
 try {
     // 指定IDの商品を取得
     $db_product = new ProductsModel();
-    $product = $db_product->getProductById($post['deleteProductId']); //IDで商品取得
+    //$product = $db_product->getProductById($post['deleteProductId']); //IDで商品取得
+    $product = $db_product->getProductById($id); //IDで商品取得
 } catch (Exception $e) {
-    //header('Location: ../error/error.php'); // Deleted 20190907 T.Nohara
-    $db_product = new ProductsModel();         // Added 2 lines 20190907 T.Nohara
-    $product = $db_product->getProductById($_COOKIE['productId']); //IDで商品取得
+?>
+    <script>
+        location.href="{{ action('home@error') }}";
+    </script>
+<?php
+
 }
 
 ?>
@@ -39,17 +43,15 @@ try {
     <!-- ヘッダー -->
     <nav class="navbar navbar-dark bg-dark sticky-top">
         <div class="col">
-            <!-- <button type="button" class="btn btn-danger mx-1" onclick="location.href='./index.php'">一覧</!--> -->
             <button type="button" class="btn btn-danger mx-1" onclick="location.href='{{ action('home@index') }}'">一覧</button>
-            <!-- <button type="button" class="btn btn-danger mx-1" onclick="location.href='./entry_product.php'">商品名登録</button> -->
             <button type="button" class="btn btn-danger mx-1" onclick="location.href='{{ action('home@edit_product') }}'">商品名登録</button>
-            <!-- <button type="button" class="btn btn-danger mx-1" onclick="location.href='./entry_condition.php'">状態登録</button> -->
             <button type="button" class="btn btn-danger mx-1" onclick="location.href='{{ action('home@entry_condition') }}'">状態登録</button>
         </div>
     </nav>
 
     <div class="container col-8">
-        <form action="./delete_action_product.php" method="post">
+        <form action="delete_action_product" method="post">
+        @csrf 
 
             <!-- 商品名入力ボックス -->
             <div class="row mt-5">
@@ -58,7 +60,8 @@ try {
                 </label>
                 <div class="input-group">
                     <input type="text" class="form-control col-5" name="product_name" id="product_name" value="<?= $product['product_name'] ?>" readonly>
-                    <input type="hidden" name="deleteProductId" id="deleteProductId" value="<?= $product['id'] ?>">
+                    <!-- <input type="hidden" name="deleteProductId" id="deleteProductId" value="<?= $product['id'] ?>">$id -->
+                    <input type="hidden" name="deleteProductId" id="deleteProductId" value="<?= $id ?>">
                 </div>
             </div>
 
@@ -73,7 +76,7 @@ try {
                 <!-- 登録ボタン -->
                 <div class="mx-auto my-5">
                     <a href="{{ action('home@delete_action_product') }}">
-                        <button type="button" class="btn btn-lg btn-danger mx-3" id="submitProductBtn">削除</button>
+                        <button type="submit" class="btn btn-lg btn-danger mx-3" id="submitProductBtn">削除</button>
                     </a>
                     <a href="{{ action('home@index') }}">
                         <button type="button" class="btn btn-lg btn-dark mx-3" id="cancelBtn">キャンセル</button>

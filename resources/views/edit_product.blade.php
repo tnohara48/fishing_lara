@@ -7,11 +7,18 @@ $post = CommonUtil::sanitaize($_POST);
 
 try {
     $db_product = new ProductsModel();
-    $product = $db_product->getProductById($post['editProductId']); //IDで商品取得
+    // $product = $db_product->getProductById($post['editProductId']); //IDで商品取得
+    $product = $db_product->getProductById($id); //IDで商品取得
+    // print_r("id=[" . $id . "]");
+    // exit();
 } catch (Exception $e) {
-    //header('Location: ../error/error.php'); // Deleted 20190907 T.Nohara
-    $db_product = new ProductsModel();         // Added 2 lines 20190907 T.Nohara
-    $product = $db_product->getProductById($_COOKIE['productId']); //IDで商品取得
+
+?>
+    <script>
+        location.href="{{ action('home@error') }}"; // エラー表示画面へ
+    </script>
+<?php
+   
 }
 ?>
 
@@ -34,18 +41,16 @@ try {
     <!-- ヘッダー -->
     <nav class="navbar navbar-dark bg-dark sticky-top">
       <div class="col">
-            <!-- <button type="button" class="btn btn-danger mx-1" onclick="location.href='./index.php'">一覧</!--> -->
             <button type="button" class="btn btn-danger mx-1" onclick="location.href='{{ action('home@index') }}'">一覧</button>
-            <!-- <button type="button" class="btn btn-danger mx-1" onclick="location.href='./entry_product.php'">商品名登録</button> -->
             <button type="button" class="btn btn-danger mx-1" onclick="location.href='{{ action('home@edit_product') }}'">商品名登録</button>
-            <!-- <button type="button" class="btn btn-danger mx-1" onclick="location.href='./entry_condition.php'">状態登録</button> -->
             <button type="button" class="btn btn-danger mx-1" onclick="location.href='{{ action('home@entry_condition') }}'">状態登録</button>
         </div>
     </nav>
 
     <div class="container col-9">
         <!-- <form action="{{ action('home@edit_action_product') }}" method="post"> -->
-        <form action="{{ route('home.edit_action_product', ['post' => $post]) }}" method="post">
+        <form action="edit_action_product" method="post">
+        @csrf 
 
             <!-- 商品名入力ボックス -->
             <div class="row mt-5">
@@ -68,9 +73,9 @@ try {
 
                 <!-- 登録ボタン -->
                 <div class="mx-auto my-5">
-                    <a href="{{ action('home@edit_action_product') }}">
+                    <!-- <a href="{{ action('home@edit_action_product') }}"> -->
                         <button type="submit" class="btn btn-lg btn-danger mx-3" id="submitProductBtn">更　新</button>
-                    </a>
+                    <!-- </a> -->
                     <a href="{{ action('home@index') }}">
                         <button type="button" class="btn btn-lg btn-dark mx-3" id="cancelBtn">キャンセル</button>
                     </a>

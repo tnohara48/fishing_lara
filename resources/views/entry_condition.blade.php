@@ -30,11 +30,8 @@ try {
     <!-- ヘッダー -->
     <nav class="navbar navbar-dark bg-dark sticky-top">
     <div class="col">
-            <!-- <button type="button" class="btn btn-danger mx-1" onclick="location.href='./index.php'">一覧</!--> -->
             <button type="button" class="btn btn-danger mx-1" onclick="location.href='{{ action('home@index') }}'">一覧</button>
-            <!-- <button type="button" class="btn btn-danger mx-1" onclick="location.href='./entry_product.php'">商品名登録</button> -->
             <button type="button" class="btn btn-danger mx-1" onclick="location.href='{{ action('home@edit_product') }}'">商品名登録</button>
-            <!-- <button type="button" class="btn btn-danger mx-1" onclick="location.href='./entry_condition.php'">状態登録</button> -->
             <button type="button" class="btn btn-danger mx-1" onclick="location.href='{{ action('home@entry_condition') }}'">状態登録</button>
         </div>
     </nav>

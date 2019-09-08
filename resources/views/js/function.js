@@ -1,3 +1,5 @@
+222222
+alert("productId");
 $(function () {
 
     //【一覧画面】ページ読み込み時は更新/削除/メモ出力ボタンを無効化
@@ -45,6 +47,7 @@ $(function () {
         $('#editConditionId').val(conditionId);                          //hiddenに商品ID設定
         $('#deleteConditionId').val(conditionId);                        //hiddenに商品ID設定
         $('#condition_memo').val(condition_memo);                        //商品状態を詳細ボックスへ表示
+        alert($('#editProductId').val(productId));
 
         //更新/削除ボタンの有効/無効化処理
         if ($("#editConditionId").val() == "") {

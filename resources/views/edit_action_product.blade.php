@@ -1,20 +1,26 @@
 <?php
+
 require_once($_SERVER['DOCUMENT_ROOT'] . '/fishing_lara/resources/views/classes/util/SessionUtil.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/fishing_lara/resources/views/classes/util/CommonUtil.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/fishing_lara/resources/views/classes/model/ProductsModel.php');
 
 // セッションスタート
-SessionUtil::sessionStart();
+//SessionUtil::sessionStart();
 
 // サニタイズ
-$post = CommonUtil::sanitaize($_POST);
+//$post = CommonUtil::sanitaize($_POST);
 
 // データベースに登録する内容を連想配列にする。
 //'id' => $post['editProductId'],
+// $data = array(
+//     'id' => $_COOKIE['productId'],
+//     'product_name' => $post['product_name'],
+//     'product_memo' => $post['product_memo'],
+// );
 $data = array(
-    'id' => $_COOKIE['productId'],
-    'product_name' => $post['product_name'],
-    'product_memo' => $post['product_memo'],
+    'id' => $id,
+    'product_name' => $product_name,
+    'product_memo' => $product_memo,
 );
 
 try {
@@ -32,11 +38,23 @@ try {
     // コミット
     $db_product->commit();
 
-    //header('Location: ./');
+?>
+    <script>
+        location.href="{{ action('home@index') }}";
+    </script>
+<?php
+
 } catch (Exception $e) {
 
     // ロールバック
     $db_product->rollback();
 
-    header('Location: ../error/error.php');
+?>
+    <script>
+        location.href="{{ action('home@error') }}";
+    </script>
+<?php
 }
+
+?>
+    
