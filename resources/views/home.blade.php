@@ -74,9 +74,9 @@ try {
     <!-- ヘッダー -->
     <nav class="navbar navbar-dark bg-dark sticky-top">
         <div class="col">
-            <button type="button" class="btn btn-danger mx-1" onclick="location.href='{{ action('home@index') }}'">一覧</button>
-            <button type="button" class="btn btn-danger mx-1" onclick="location.href='{{ action('home@edit_product') }}'">商品名登録</button>
-            <button type="button" class="btn btn-danger mx-1" onclick="location.href='{{ action('home@entry_condition') }}'">状態登録</button>
+            <button type="button" class="btn btn-danger mx-1" onclick="location.href='{{ action('FishContrller@index') }}'">一覧</button>
+            <button type="button" class="btn btn-danger mx-1" onclick="location.href='{{ action('FishContrller@edit_product') }}'">商品名登録</button>
+            <button type="button" class="btn btn-danger mx-1" onclick="location.href='{{ action('FishContrller@entry_condition') }}'">状態登録</button>
             <button type="button" class="btn btn-success font-weight-bold float-right" id="export">メモ出力</button>
         </div>
     </nav>
@@ -135,12 +135,12 @@ try {
                 <!-- 商品詳細ボタン -->
                 <div class="float-right mt-3">
                     <div class="row">
-                        <form action="{{ action('home@edit_product') }}" method="post">
+                        <form action="{{ action('FishContrller@edit_product') }}" method="post">
                             @csrf 
                             <input type="hidden" name="editProductId" id="editProductId" value="">
                             <button type="submit" class="btn btn-primary mr-2 font-weight-bold" id="editProductBtn">修正して更新</button>
                         </form>
-                        <form action="{{ action('home@delete_product') }}" method="post">
+                        <form action="{{ action('FishContrller@delete_product') }}" method="post">
                             @csrf 
                             <input type="hidden" name="deleteProductId" id="deleteProductId" value="">
                             <button type="submit" class="btn btn-danger mr-3 font-weight-bold" id="deleteProductBtn">削除</button>
@@ -221,12 +221,12 @@ try {
                 <!-- 商品状態ボタン -->
                 <div class="float-right mt-3">
                     <div class="row">
-                        <form action="{{ action('home@edit_condition') }}" method="post">
+                        <form action="{{ action('FishContrller@edit_condition') }}" method="post">
                             @csrf 
                             <input type="hidden" name="editConditionId" id="editConditionId" value="">
                             <button type="submit" class="btn btn-primary mr-2 font-weight-bold" id="editConditionBtn">修正して更新</button>
                         </form>
-                        <form action="{{ action('home@delete_condition') }}" method="post">
+                        <form action="{{ action('FishContrller@delete_condition') }}" method="post">
                             @csrf 
                             <input type="hidden" name="deleteConditionId" id="deleteConditionId" value="">
                             <button type="submit" class="btn btn-danger mr-3 font-weight-bold" id="deleteConditionBtn">削除</button>
